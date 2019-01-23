@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DinnerParty
-{
+{ 
     public partial class Form1 : Form
     {
+        DinnerParty dinnerParty;
         public Form1()
         {
             InitializeComponent();
@@ -43,6 +44,11 @@ namespace DinnerParty
             decimal Cost = dinnerParty.CalculateCost(healthyBox.Checked);
             costLabel.Text = Cost.ToString("c");
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+        
+        }
     }
     }
-}
+
