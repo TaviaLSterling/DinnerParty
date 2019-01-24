@@ -3,52 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace DinnerParty
 {
     class DinnerParty
     {
-         public const int CostOfFoodPerPerson = 25;
-        public int NumberOfPeople;
-        public decimal CostOfBeveragesPerPerson;
-        public decimal CostOfDecorations = 0;
+        public const int CostOfFoodPerPerson = 25;
+        public int NumberOfPeople { get; set; }
+        public bool FancyDecorations { get; set; }
+        public bool HealthyOption { get; set; }
 
-        public void SetHealthyOption(bool healthyOption)
+        public DinnerParty(int numberOfPeople, bool healthyOption, bool fancyDecorations)
         {
-            if (healthyOption)
+            NumberOfPeople = numberOfPeople;
+            FancyDecorations = fancyDecorations;
+            HealthyOption = healthyOption;
+        }
+        public decimal CalculateCostOfDecorations()
+        {
+            decimal costOfDecorations;
+            if (FancyDecorations)
             {
-                CostOfBeveragesPerPerson = 5.00M;
+                costOfDecorations = (NumberOfPeople * 15.00M) + 50M;
             }
             else
             {
-                CostOfBeveragesPerPerson = 20.00M;
+                costOfDecorations = (NumberOfPeople * 7.50M) + 30M;
             }
+            return costOfDecorations;
         }
 
-        public void CalculateCostOfDecorations(bool fancy)
+        private decimal CalculateCostOfBeveragesPerPerson()
         {
-            if (fancy)
+            decimal costOfBeveragesPerPerson;
+            if (HealthyOption)
             {
-                CostOfDecorations = (NumberOfPeople * 15.00M) + 50M;
+                costOfBeveragesPerPerson = 5.00M;
             }
             else
             {
-                CostOfDecorations = (NumberOfPeople * 7.50M) + 30M;
+                costOfBeveragesPerPerson = 20.00M;
             }
+            return costOfBeveragesPerPerson;
         }
-        public decimal CalculateCost(bool healthyOption)
-        {
-            decimal totalCost = CostOfDecorations +
-                   ((CostOfBeveragesPerPerson + CostOfFoodPerPerson)
-                       * NumberOfPeople);
 
-            if (healthyOption)
+        public decimal Cost
+        {
+            get
             {
-                return totalCost * .95M;
-            }
-            else
-            {
+                decimal totalCost = CalculateCostOfDecorations();
+                totalCost += ((CalculateCostOfBeveragesPerPerson()
+                                      + CostOfFoodPerPerson) * NumberOfPeople);
+                if (HealthyOption)
+                {
+                    totalCost *= .95M;
+                }
                 return totalCost;
             }
         }

@@ -16,20 +16,22 @@ namespace DinnerParty
         public Form1()
         {
             InitializeComponent();
-            dinnerParty = new DinnerParty() { NumberOfPeople = 5 };
-            dinnerParty.CalculateCostOfDecorations(fancyBox.Checked);
-            dinnerParty.SetHealthyOption(healthyBox.Checked);
+            InitializeComponent();
+            dinnerParty = new DinnerParty((int)numericUpDown1.Value,
+                                    healthyBox.Checked, fancyBox.Checked);
             DisplayDinnerPartyCost();
         }
-         private void fancyBox_CheckedChanged(object sender, EventArgs e)
+
+
+        private void fancyBox_CheckedChanged(object sender, EventArgs e)
         {
-            dinnerParty.CalculateCostOfDecorations(fancyBox.Checked);
+            dinnerParty.FancyDecorations = fancyBox.Checked;
             DisplayDinnerPartyCost();
         }
 
         private void healthyBox_CheckedChanged(object sender, EventArgs e)
         {
-            dinnerParty.SetHealthyOption(healthyBox.Checked);
+            dinnerParty.HealthyOption = healthyBox.Checked;
             DisplayDinnerPartyCost();
         }
 
@@ -41,13 +43,8 @@ namespace DinnerParty
 
         private void DisplayDinnerPartyCost()
         {
-            decimal Cost = dinnerParty.CalculateCost(healthyBox.Checked);
+            decimal Cost = dinnerParty.Cost;
             costLabel.Text = Cost.ToString("c");
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        
         }
     }
     }
