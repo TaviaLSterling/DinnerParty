@@ -46,6 +46,10 @@ namespace DinnerParty
             decimal Cost = dinnerParty.Cost;
             costLabel.Text = Cost.ToString("c");
         }
+        private void textBox1_TextChanged()
+        {
+
+        }
     }
     }
 
